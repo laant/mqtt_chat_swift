@@ -307,6 +307,7 @@
                     <navigationItem key="navigationItem" id="GWB-cc-olL"/>
                     <connections>
                         <outlet property="tableView" destination="iSe-8P-aou" id="MxR-qM-Nci"/>
+                        <segue destination="6mN-zy-0OG" kind="show" identifier="goWeb" id="G57-kh-u9u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

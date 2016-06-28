@@ -15,6 +15,7 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
     var manager: MQTTSessionManager!
     var mqttSettings:NSDictionary!
     let device_id = UIDevice.currentDevice().identifierForVendor!.UUIDString //UIDevice.currentDevice().name
+    var urlInfo:NSURL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,9 +218,8 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
     func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
         print("shouldInteractWithURL : \(URL)")
         
-        let vc:WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-        vc.reqUrl = URL
-        self.navigationController!.pushViewController(vc, animated: true)
+        urlInfo = URL
+        self.performSegueWithIdentifier("goWeb", sender: self)
         
         return false
     }
@@ -230,6 +230,14 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
         let lastIndexPath = NSIndexPath(forItem: last_item_index, inSection: 0)
         
         tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goWeb" {
+            let vc:WebViewController = segue.destinationViewController as! WebViewController
+            vc.reqUrl = urlInfo
+        }
     }
 }
 
