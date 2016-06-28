@@ -16,6 +16,7 @@
 		EF3A1B951D1D07F100D0A252 /* mqtt.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF3A1B921D1D07F100D0A252 /* mqtt.plist */; };
 		EF3A1B961D1D07F100D0A252 /* TextTalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3A1B931D1D07F100D0A252 /* TextTalkCell.swift */; };
 		EF3A1B971D1D07F100D0A252 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3A1B941D1D07F100D0A252 /* Utility.swift */; };
+		EFCE29EE1D2263F100639D06 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCE29ED1D2263F100639D06 /* WebViewController.swift */; };
 		FA76D5A1876B2CEA51BF7FF5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F59DD1B01E231E84196EF02 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		EF3A1B921D1D07F100D0A252 /* mqtt.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mqtt.plist; sourceTree = "<group>"; };
 		EF3A1B931D1D07F100D0A252 /* TextTalkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTalkCell.swift; sourceTree = "<group>"; };
 		EF3A1B941D1D07F100D0A252 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		EFCE29ED1D2263F100639D06 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				EF3A1B7C1D1D072800D0A252 /* AppDelegate.swift */,
 				EF3A1B7E1D1D072800D0A252 /* ViewController.swift */,
 				EF3A1B931D1D07F100D0A252 /* TextTalkCell.swift */,
+				EFCE29ED1D2263F100639D06 /* WebViewController.swift */,
 				EF3A1B941D1D07F100D0A252 /* Utility.swift */,
 				EF3A1B801D1D072800D0A252 /* Main.storyboard */,
 				EF3A1B851D1D072800D0A252 /* LaunchScreen.storyboard */,
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF3A1B971D1D07F100D0A252 /* Utility.swift in Sources */,
+				EFCE29EE1D2263F100639D06 /* WebViewController.swift in Sources */,
 				EF3A1B7F1D1D072800D0A252 /* ViewController.swift in Sources */,
 				EF3A1B901D1D07E600D0A252 /* UIImageView+downloadByImageUrl.swift in Sources */,
 				EF3A1B961D1D07F100D0A252 /* TextTalkCell.swift in Sources */,

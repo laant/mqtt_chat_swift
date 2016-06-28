@@ -94,11 +94,12 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
     }
     
     @IBAction func pressedShortText(sender: AnyObject) {
+        
         let htmlText: String =
             "폰트컬러 블루<font color=\"blue\">파랑</font>선택선택선택선택선택선택선택선택선택선택。<br>" +
                 "폰트컬러 레드<font color=\"red\">빨강</font>선택。<br>" +
                 "<hr width=\"100%\" size=\"1\" noshade>" +
-                "타이드스퀘어<a href=\"http://www.tidesquare.com/\"><strong>홈페이지</strong></a><br>" +
+                "타이드스퀘어<a href=\"http://m.priviatravel.com/\"><strong>프리비아여행</strong></a><br>" +
         "CSS Style<strong style=\"color:#663399;\">#663399</strong>...。"
         
         manager.sendData("[html]\(htmlText)".dataUsingEncoding(NSUTF8StringEncoding), topic: "\(mqttSettings["base"]!)/\(device_id)", qos: .ExactlyOnce, retain: false)
@@ -171,7 +172,7 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
             let attributedOptions : [String : AnyObject] = [
                 NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
                 NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-                ]
+            ]
             
             do {
                 let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
@@ -215,7 +216,12 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
     
     func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
         print("shouldInteractWithURL : \(URL)")
-        return true
+        
+        let vc:WebViewController = self.storyboard!.instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+        vc.reqUrl = URL
+        self.navigationController!.pushViewController(vc, animated: true)
+        
+        return false
     }
     
     // MARK - Etc Function
