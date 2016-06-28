@@ -94,7 +94,14 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
     }
     
     @IBAction func pressedShortText(sender: AnyObject) {
-        manager.sendData("pressedShortText".dataUsingEncoding(NSUTF8StringEncoding), topic: "\(mqttSettings["base"]!)/\(device_id)", qos: .ExactlyOnce, retain: false)
+        let htmlText: String =
+            "폰트컬러 블루<font color=\"blue\">파랑</font>선택선택선택선택선택선택선택선택선택선택。<br>" +
+                "폰트컬러 레드<font color=\"red\">빨강</font>선택。<br>" +
+                "<hr width=\"100%\" size=\"1\" noshade>" +
+                "타이드스퀘어<a href=\"http://www.tidesquare.com/\"><strong>홈페이지</strong></a><br>" +
+        "CSS Style<strong style=\"color:#663399;\">#663399</strong>...。"
+        
+        manager.sendData("[html]\(htmlText)".dataUsingEncoding(NSUTF8StringEncoding), topic: "\(mqttSettings["base"]!)/\(device_id)", qos: .ExactlyOnce, retain: false)
     }
     
     @IBAction func pressedImageUrl(sender: AnyObject) {
@@ -111,7 +118,7 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
         "http://file3.funshop.co.kr/abroad/012/6241/thumbnail_1.jpg"
         ]
         
-        manager.sendData("[image]\(images[Utility.random(items.count-1)])".dataUsingEncoding(NSUTF8StringEncoding), topic: "\(mqttSettings["base"]!)/\(device_id)", qos: .ExactlyOnce, retain: false)
+        manager.sendData("[image]\(images[Utility.random(images.count)])".dataUsingEncoding(NSUTF8StringEncoding), topic: "\(mqttSettings["base"]!)/\(device_id)", qos: .ExactlyOnce, retain: false)
     }
     
     // MARK - MQTTSessionManagerDelegate
@@ -149,6 +156,34 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
             
             cell.image_view.downloadByImageUrl(item.msg.substringFromIndex("[image]".endIndex))
         }
+        else if item.msg.containsString("[html]") {
+            if item.sender == device_id {
+                cell = self.tableView.dequeueReusableCellWithIdentifier("send_text")! as! TextTalkCell
+            }
+            else {
+                cell = self.tableView.dequeueReusableCellWithIdentifier("recv_text")! as! TextTalkCell
+            }
+            
+            let htmlText = item.msg.substringFromIndex("[html]".endIndex)
+            
+            let encodedData = htmlText.dataUsingEncoding(NSUTF8StringEncoding)!
+            
+            let attributedOptions : [String : AnyObject] = [
+                NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
+                NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+                ]
+            
+            do {
+                let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
+                
+                cell.textView.attributedText = attributedString
+                cell.textViewWidthConstraint.constant = UIScreen.mainScreen().bounds.size.width*0.7
+                cell.textView.delegate = self
+            }
+            catch {
+                print("error")
+            }
+        }
         else {
             if item.sender == device_id {
                 cell = self.tableView.dequeueReusableCellWithIdentifier("send_text")! as! TextTalkCell
@@ -176,6 +211,11 @@ class ViewController: UIViewController, MQTTSessionManagerDelegate, UITableViewD
         //        tableView.endUpdates()
         //        UIView.setAnimationsEnabled(true)
         //        tableView.setContentOffset(currentOffset, animated: false)
+    }
+    
+    func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        print("shouldInteractWithURL : \(URL)")
+        return true
     }
     
     // MARK - Etc Function
